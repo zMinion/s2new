@@ -48,7 +48,17 @@ if (!class_exists ("c_ws_plugin__s2member_sp_access"))
 							{
 								$sp_access = c_ws_plugin__s2member_utils_encryption::encrypt ("sp_time_hours:.:|:.:" . $sp_ids . ":.:|:.:" . strtotime ("now") . ":.:|:.:" . $hours);
 
-								$sp_access_link = add_query_arg ("s2member_sp_access", urlencode ($sp_access), get_permalink ($leading_id)); // Generate long URL/link.
+								//$sp_access_link = add_query_arg ("s2member_sp_access", urlencode ($sp_access), get_permalink ($leading_id)); // Generate long URL/link.
+								//add/modified by Szilard - BEGIN
+								$leading_id_url = get_permalink ($leading_id);
+								$leading_id_type = get_post_type($leading_id);
+								if ( in_array($leading_id_type, array('dv2_video', 'dv2_album', 'dv2_model')) ) {
+									$leading_id_type_url = array('dv2_video' => '/videoentry/', 'dv2_album' => '/albumentry/', 'dv2_model' => '/modelentry/');
+									$leading_id_date = get_post_time('/Y/m/d/', false, $leading_id);
+									$leading_id_url = str_replace($leading_id_date, $leading_id_type_url[$leading_id_type], $leading_id_url);
+								}
+								$sp_access_link = add_query_arg ("s2member_sp_access", urlencode ($sp_access), $leading_id_url);
+								//add/modified by Szilard - END
 
 								if ($shrink && ($shorter_url = c_ws_plugin__s2member_utils_urls::shorten ($sp_access_link)))
 									$sp_access_link = $shorter_url . "#" . $_SERVER["HTTP_HOST"];

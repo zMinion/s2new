@@ -70,6 +70,7 @@ if(!class_exists('c_ws_plugin__s2member_paypal_notify_in_web_accept_sp'))
 							$coupon_class->update_uses($coupon['coupon_code']);
 						}
 					if(($sp_access_url = c_ws_plugin__s2member_sp_access::sp_access_link_gen($paypal['sp_ids'], $paypal['hours'])))
+					//if (($sp_access_url = c_ws_plugin__s2member_sp_access::sp_access_link_gen($paypal['sp_ids'], $paypal['hours'], false)) && is_array($cv = preg_split('/\|/', $paypal['custom']))) //this is just for testing by Szilard
 					{
 						$processing = $during = TRUE; // Yes, we ARE processing this.
 

@@ -125,16 +125,16 @@ if(!class_exists('c_ws_plugin__s2member_utils_logs'))
 			$log_entry = preg_replace('/\b([3456][0-9]{10,11})([0-9]{4})\b/', 'xxxxxxxxxxxx'.'$2', $log_entry);
 
 			$log_entry = preg_replace('/(\'.*pass_?(?:word)?(?:[0-9]+)?\'\s*\=\>\s*\')([^\']+)(\')/', '$1'.'xxxxxxxx/pass'.'$3', $log_entry);
-			$log_entry = preg_replace('/([&?][^&]*pass_?(?:word)?(?:[0-9]+)?\=)([^&]+)/', '$1'.'xxxxxxxx/pass', $log_entry);
+			$log_entry = preg_replace('/([&?][^&]*pass_?(?:word)?(?:[0-9]+)?\=)([^&\']+)(&|\'|$)/', '$1'.'xxxxxxxx/pass'.'$3', $log_entry); //modified by Szilard
 
 			$log_entry = preg_replace('/(\'api_?(?:key|secret)\'\s*\=\>\s*\')([^\']+)(\')/', '$1'.'xxxxxxxx/api/key/sec'.'$3', $log_entry);
-			$log_entry = preg_replace('/([&?][^&]api_?(?:key|secret)\=)([^&]+)/', '$1'.'xxxxxxxx/api/key/sec', $log_entry);
+			$log_entry = preg_replace('/([&?][^&]api_?(?:key|secret)\=)([^&\']+)(&|\'|$)/', '$1'.'xxxxxxxx/api/key/sec'.'$3', $log_entry); //modified by Szilard
 
 			$log_entry = preg_replace('/(\'(?:PWD|SIGNATURE)\'\s*\=\>\s*\')([^\']+)(\')/', '$1'.'xxxxxxxx/PWD/SIG'.'$3', $log_entry);
-			$log_entry = preg_replace('/([&?][^&](?:PWD|SIGNATURE)\=)([^&]+)/', '$1'.'xxxxxxxx/PWD/SIG', $log_entry);
+			$log_entry = preg_replace('/([&?][^&](?:PWD|SIGNATURE)\=)([^&\']+)(&|\'|$)/', '$1'.'xxxxxxxx/PWD/SIG'.'$3', $log_entry); //modified by Szilard
 
 			$log_entry = preg_replace('/(\'(?:x_login|x_tran_key)\'\s*\=\>\s*\')([^\']+)(\')/', '$1'.'xxxxxxxx/key/tran'.'$3', $log_entry);
-			$log_entry = preg_replace('/([&?][^&](?:x_login|x_tran_key)\=)([^&]+)/', '$1'.'xxxxxxxx/key/tran', $log_entry);
+			$log_entry = preg_replace('/([&?][^&](?:x_login|x_tran_key)\=)([^&\']+)(&|\'|$)/', '$1'.'xxxxxxxx/key/tran'.'$3', $log_entry); //modified by Szilard
 
 			return $log_entry; // With some private info concealed now.
 		}
@@ -237,6 +237,13 @@ if(!class_exists('c_ws_plugin__s2member_utils_logs'))
 		  '/ccbill\-rtn/'          => array('short' => 'ccBill Auto-Return communication.', 'long' => 'This log file records the Auto-Return data ccBill sends to s2Member with details regarding new transactions (i.e., logs routines that help s2Member process Thank-You pages). See also: gateway-core-rtn.log (s2Member\'s core processor).'),
 		  '/ccbill\-dl\-ipn/'      => array('short' => 'ccBill Datalink Subscription status checks.', 'long' => 'This log file records s2Member\'s ccBill Datalink Subscription status checks that may result in actions taken by s2Member. s2Member polls the ccBill Datalink service periodically to check the status of existing Members (e.g., to see if billing is still active or not).'),
 		  '/ccbill\-dl/'           => array('short' => 'ccBill Datalink collections.', 'long' => 'This log file records s2Member\'s ccBill Datalink connections. s2Member polls the ccBill Datalink service periodically to obtain information about existing Users/Members.'),
+
+			//added by Szilard - BEGIN
+		  '/epoch\-ipn/'          => array('short' => 'Epoch Bg Post/IPN communication.', 'long' => 'This log file records the Bg Post/IPN data Epoch sends to s2Member with details regarding new transactions. See also: gateway-core-ipn.log (s2Member\'s core processor).'),
+		  '/epoch\-rtn/'          => array('short' => 'Epoch Auto-Return communication.', 'long' => 'This log file records the Auto-Return data Epoch sends to s2Member with details regarding new transactions (i.e., logs routines that help s2Member process Thank-You pages). See also: gateway-core-rtn.log (s2Member\'s core processor).'),
+		  '/epoch\-dl\-ipn/'      => array('short' => 'Epoch DataPlus Subscription status checks.', 'long' => 'This log file records s2Member\'s Epoch DataPlus Subscription status checks that may result in actions taken by s2Member. s2Member polls the Epoch DataPlus service periodically to check the status of existing Members (e.g., to see if billing is still active or not).'),
+		  '/epoch\-dl/'           => array('short' => 'Epoch DataPlus collections.', 'long' => 'This log file records s2Member\'s Epoch DataPlus connections. s2Member polls the Epoch DataPlus service periodically to obtain information about existing Users/Members.'),
+			//added by Szilard - END
 
 		  '/mailchimp\-api/'       => array('short' => 'MailChimp API communication.', 'long' => 'This log file records all of s2Member\'s communication with MailChimp APIs.'),
 		  '/aweber\-api/'          => array('short' => 'AWeber API communication.', 'long' => 'This log file records all of s2Member\'s communication with AWeber APIs.'),

@@ -374,7 +374,7 @@ if(!class_exists('c_ws_plugin__s2member_constants'))
 			/**
 			 * The current User's Paid Subscription Gateway Code (when applicable).
 			 *
-			 * Usually one of these values: `paypal`, `authnet`, `clickbank`, `google`, `ccbill`, `alipay`.
+			 * Usually one of these values: `paypal`, `authnet`, `clickbank`, `google`, `ccbill`, `alipay`, `epoch`. //modified by Szilard
 			 *
 			 * An empty string if NOT logged-in, or if NOT a paying Member.
 			 *

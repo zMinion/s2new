@@ -238,6 +238,9 @@ if(!class_exists('c_ws_plugin__s2member_files_in'))
 									else // Weed out empty log entries. Some older versions of s2Member may have corrupt/empty log entries.
 										unset($user_file_download_access_log[$user_file_download_access_log_entry_key]); // Remove.
 								}
+								
+								if(preg_match('/^.*\.(jpg|jpeg|jpe|gif|png)$/i', $req['file_download'])) $updating_user_counter = $user_already_downloaded_this_file = FALSE; //added by Szilard
+								
 								if($updating_user_counter && !$user_already_downloaded_this_file && !$user_already_downloaded_a_streaming_variation_of_this_file) // Do we need a new log entry for this file?
 									$user_file_download_access_log[] = array('date' => date('Y-m-d'), 'time' => time(), 'ltime' => time(), 'file' => $req['file_download'], 'counter' => 1);
 
@@ -271,6 +274,11 @@ if(!class_exists('c_ws_plugin__s2member_files_in'))
 					{
 						$basename  = basename($req['file_download']);
 						$mimetypes = parse_ini_file(dirname(dirname(dirname(__FILE__))).'/includes/mime-types.ini');
+						//added by Szilard - BEGIN
+						if ( !is_array($mimetypes) || !isset($mimetypes['mp4']) ) {
+							$mimetypes = parse_ini_advanced(dirname(dirname(dirname(__FILE__)))."/includes/mime-types.ini");
+						}
+						//added by Szilard - END
 						$extension = strtolower(substr($req['file_download'], strrpos($req['file_download'], '.') + 1));
 
 						$key = ($req['file_download_key'] && is_string($req['file_download_key'])) ? $req['file_download_key'] : FALSE;
@@ -472,6 +480,8 @@ if(!class_exists('c_ws_plugin__s2member_files_in'))
 									fseek($resource, $byte_range_start);
 								}
 								else $_bytes_to_read = $length; // Entire file.
+								
+								session_write_close(); //added by Szilard
 
 								$chunk_size = apply_filters('ws_plugin__s2member_file_downloads_chunk_size', 2097152, get_defined_vars());
 

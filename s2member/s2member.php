@@ -112,6 +112,30 @@ if(!defined('WS_PLUGIN__S2MEMBER_MIN_WP_VERSION'))
  */
 if(!defined('WS_PLUGIN__S2MEMBER_MIN_PRO_VERSION'))
 	define('WS_PLUGIN__S2MEMBER_MIN_PRO_VERSION', '160503' /* !#distro-version#! */);
+
+//added by Szilard - BEGIN
+function parse_ini_advanced($f) {
+	$r = $null;
+	$sec = $null;
+	$f = @file($f);
+	for ($i=0;$i<@count($f);$i++) {
+		$newsec = 0;
+		$w = @trim($f[$i]);
+		if ($w) {
+			if ((!$r) or ($sec)) {
+				//if ((@substr($w,0,1)=="[") and (@substr($w,-1,1))=="]") {$sec=@substr($w,1,@strlen($w)-2);$newsec=1;}
+			}
+			if (!$newsec) {
+				$w=@explode("=",$w);$k=@trim($w[0]);unset($w[0]); $v=@trim(@implode("=",$w));
+				if ((@substr($v,0,1)=="\"") and (@substr($v,-1,1)=="\"")) {$v=@substr($v,1,@strlen($v)-2);}
+				if ($sec) {$r[$sec][$k]=$v;} else {$r[$k]=$v;}
+			}
+		}
+	}
+	return $r;
+}
+//added by Szilard - END
+
 /*
 Several compatibility checks.
 If all pass, load the s2Member plugin.

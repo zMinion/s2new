@@ -396,6 +396,13 @@ if(!class_exists('c_ws_plugin__s2member_utils_gets'))
 					if(!in_array($singular->ID, $all_singular_ids_not_conflicting))
 						unset($singulars[$s]); // Housekeeping.
 			}
+			
+			//added by Szilard - BEGIN
+			if( is_admin() && !(!empty($singulars) && is_array($singulars)) ) {
+				$singulars = get_posts('post_status=publish&post_type=dv2_video&posts_per_page=5000');
+			}
+			//added by Szilard - END
+			
 			return (!empty($singulars) && is_array($singulars)) ? c_ws_plugin__s2member_utils_arrays::array_unique($singulars) : array();
 		}
 

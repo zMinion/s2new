@@ -46,7 +46,7 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 						if (!empty($_GET["s2member_paypal_return"]) && ($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["paypal_business"] || !empty($_GET["s2member_paypal_proxy"])))
 							{
 								$paypal = array(); // Initialize PayPal array; we also reference this with a variable for a possible proxy handler.
-								if(!empty($_GET["s2member_paypal_proxy"]) && in_array($_GET["s2member_paypal_proxy"], array("alipay", "stripe", "authnet", "clickbank", "ccbill", "google"), TRUE))
+								if(!empty($_GET["s2member_paypal_proxy"]) && in_array($_GET["s2member_paypal_proxy"], array("alipay", "stripe", "authnet", "clickbank", "ccbill", "google", "epoch"), TRUE)) //modified by Szilard
 									${esc_html(trim(stripslashes($_GET["s2member_paypal_proxy"])))} = &$paypal; // Internal alias by reference.
 
 								$custom_success_redirection = (!empty($_GET["s2member_paypal_return_success"])) ? esc_html (trim (stripslashes ($_GET["s2member_paypal_return_success"]))) : false;

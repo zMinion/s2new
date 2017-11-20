@@ -1,0 +1,20 @@
+s2member.php
+includes/classes/files-in.inc.php					#because php_ini_file not working properly
+includes/classes/paypal-notify-in-web-accept-sp.inc.php			###not changed but there is a mark for testing
+includes/classes/sp-access.inc.php					#get_permalink()
+includes/classes/utils-logs.inc.php					#preg_replace password fix and #epoch added
+includes/classes/utils-gets.inc.php					#dv2_video to the specific_ids
+
+includes/classes/constants.inc.php					#epoch added
+includes/classes/paypal-notify-in.inc.php				#epoch added
+includes/classes/paypal-return-in.inc.php				#epoch added
+includes/classes/users-list-in.inc.php					#epoch added
+includes/classes/user-new-in.inc.php					#epoch added
+
+includes/menu-pages/code-samples/current-user-subscr-gateway.x-php	#epoch added
+
+includes/mime-types.ini							#changing MOV type to video/mp4
+
+
+###check .htaccess - direct access to the thumbs are allowed
+../s2members-files/.htaccess
